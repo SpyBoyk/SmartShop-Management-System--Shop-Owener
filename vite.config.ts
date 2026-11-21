@@ -8,7 +8,7 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/tailadmin-vuejs/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/SmartShop-Management-System--Shop-Owener/' : '/',
   plugins: [vue(), vueJsx(), vueDevTools(), basicSsl()],
   server: {
     host: true,
