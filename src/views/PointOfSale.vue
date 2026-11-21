@@ -137,7 +137,7 @@
             <div class="inline-flex rounded-lg bg-gray-100 p-1 dark:bg-gray-800 shrink-0">
               <button
                 type="button"
-                @click="activeScanTab = 'camera'; if (!isCameraActive) startCamera()"
+                @click="activeScanTab = 'camera'"
                 :class="[
                   'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition cursor-pointer',
                   activeScanTab === 'camera'
@@ -1127,7 +1127,7 @@ const {
 // --- State ---
 const soundEnabled = ref(true)
 const mobileActiveTab = ref<'scanner' | 'catalog' | 'bill'>('scanner')
-const activeScanTab = ref<'camera' | 'barcode'>('camera')
+const activeScanTab = ref<'camera' | 'barcode'>('barcode')
 const barcodeInputValue = ref('')
 const barcodeInputRef = ref<HTMLInputElement | null>(null)
 
@@ -1848,24 +1848,11 @@ function printReceipt() {
   window.print()
 }
 
-onMounted(async () => {
+onMounted(() => {
   // Auto-focus barcode input
   nextTick(() => {
     barcodeInputRef.value?.focus()
   })
-
-  // Auto-start camera only when mediaDevices is available in a secure origin
-  const hasCameraApi =
-    typeof navigator !== 'undefined' &&
-    Boolean(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
-
-  if (hasCameraApi) {
-    try {
-      await startCamera()
-    } catch (e) {
-      console.warn('Auto start camera error:', e)
-    }
-  }
 })
 
 onUnmounted(() => {

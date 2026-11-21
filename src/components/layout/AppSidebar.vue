@@ -1,7 +1,7 @@
 <template>
   <aside
     :class="[
-      'fixed top-14 sm:top-16 lg:top-0 mt-0 flex flex-col px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] lg:h-screen transition-all duration-300 ease-in-out z-99999 border-r border-gray-200 shadow-xl lg:shadow-none',
+      'fixed top-[55px] sm:top-[63px] lg:top-0 mt-0 flex flex-col px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-[calc(100dvh-55px)] sm:h-[calc(100dvh-63px)] lg:h-screen transition-all duration-300 ease-in-out z-99999 border-r border-gray-200 shadow-xl lg:shadow-none',
       {
         'lg:w-[290px]': isExpanded || isMobileOpen || isHovered,
         'lg:w-[90px]': !isExpanded && !isHovered,
