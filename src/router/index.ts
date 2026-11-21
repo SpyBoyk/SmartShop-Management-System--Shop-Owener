@@ -233,3 +233,29 @@ router.beforeEach((to, from, next) => {
   document.title = `${pageTitle} | SmartShop - Business Dashboard`
   next()
 })
+
+// Auto-reload on stale dynamic import chunk error (e.g. following a fresh GitHub Pages deployment)
+router.onError((error, to) => {
+  const isChunkError =
+    error?.message?.includes('Failed to fetch dynamically imported module') ||
+    error?.message?.includes('Importing a module script failed') ||
+    error?.name === 'ChunkLoadError'
+
+  if (isChunkError) {
+    const reloadKey = 'chunk_reload_' + to.fullPath
+    if (!sessionStorage.getItem(reloadKey)) {
+      sessionStorage.setItem(reloadKey, 'true')
+      window.location.href = window.location.origin + router.resolve(to).href
+    }
+  }
+})
+
+router.afterEach(() => {
+  // Clear chunk reload keys after successful navigation
+  for (let i = sessionStorage.length - 1; i >= 0; i--) {
+    const key = sessionStorage.key(i)
+    if (key?.startsWith('chunk_reload_')) {
+      sessionStorage.removeItem(key)
+    }
+  }
+})
