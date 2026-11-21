@@ -53,7 +53,7 @@
           v-if="route.path !== '/pos'"
           to="/pos"
           @click="closeMobileSidebar"
-          class="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 text-xs font-bold transition shadow-2xs"
+          class="inline-flex items-center gap-1 px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 text-[11px] sm:text-xs font-bold transition shadow-2xs"
           title="Open POS Scanner"
         >
           <span>📷</span>
@@ -64,13 +64,13 @@
         <div class="relative" ref="shopSwitcherRef">
           <button
             @click.stop="isShopSwitcherOpen = !isShopSwitcherOpen"
-            class="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition shadow-2xs hover:opacity-90 cursor-pointer"
+            class="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg border text-[11px] sm:text-xs font-semibold transition shadow-2xs hover:opacity-90 cursor-pointer"
             :class="currentShopMeta.badgeClass"
             title="Switch Store Workspace"
           >
-            <span class="text-sm">{{ currentShopMeta.icon }}</span>
+            <span class="text-xs sm:text-sm">{{ currentShopMeta.icon }}</span>
             <span class="hidden sm:inline font-semibold text-gray-800 dark:text-white">{{ currentShopMeta.shortName }}</span>
-            <svg class="w-3 h-3 opacity-60 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 opacity-60 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
