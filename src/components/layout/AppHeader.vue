@@ -1,8 +1,8 @@
 <template>
   <header
-    class="sticky top-0 flex w-full bg-white border-b border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900"
+    class="sticky top-0 flex w-full bg-white border-b border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900 h-14 sm:h-16 items-center"
   >
-    <div class="flex items-center justify-between w-full px-2.5 sm:px-4 lg:px-6 py-2 sm:py-2.5 min-w-0">
+    <div class="flex items-center justify-between w-full px-2.5 sm:px-4 lg:px-6 min-w-0 h-full">
       <!-- Left: Hamburger Menu Button & Logo -->
       <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
         <button
@@ -52,6 +52,7 @@
         <router-link
           v-if="route.path !== '/pos'"
           to="/pos"
+          @click="closeMobileSidebar"
           class="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 text-xs font-bold transition shadow-2xs"
           title="Open POS Scanner"
         >
@@ -124,7 +125,7 @@ import HeaderLogo from './header/HeaderLogo.vue'
 import NotificationMenu from './header/NotificationMenu.vue'
 import UserMenu from './header/UserMenu.vue'
 
-const { toggleSidebar, toggleMobileSidebar, isMobileOpen } = useSidebar()
+const { toggleSidebar, toggleMobileSidebar, closeMobileSidebar, isMobileOpen } = useSidebar()
 const { currentShopType, currentShopMeta, setShopType, SHOP_TYPE_META } = useShopStore()
 
 const availableShopTypes = Object.values(SHOP_TYPE_META)
@@ -136,6 +137,7 @@ const route = useRoute()
 function onSelectShop(type: ShopType) {
   setShopType(type)
   isShopSwitcherOpen.value = false
+  closeMobileSidebar()
   // If user is currently on a specific category page (e.g. /products/grains-pulses), redirect to /products
   if (route.path.startsWith('/products/')) {
     router.push('/products')

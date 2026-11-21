@@ -1,7 +1,7 @@
 <template>
   <aside
     :class="[
-      'fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-99999 border-r border-gray-200',
+      'fixed top-14 sm:top-16 lg:top-0 mt-0 flex flex-col px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] lg:h-screen transition-all duration-300 ease-in-out z-99999 border-r border-gray-200 shadow-xl lg:shadow-none',
       {
         'lg:w-[290px]': isExpanded || isMobileOpen || isHovered,
         'lg:w-[90px]': !isExpanded && !isHovered,
@@ -15,10 +15,10 @@
   >
     <div
       :class="[
-        'py-4 flex flex-col justify-center items-center w-full border-b border-gray-100 dark:border-gray-800/80 mb-3',
+        'py-4 hidden lg:flex flex-col justify-center items-center w-full border-b border-gray-100 dark:border-gray-800/80 mb-3',
       ]"
     >
-      <router-link to="/" class="flex flex-col items-center justify-center">
+      <router-link to="/" @click="closeMobileSidebar" class="flex flex-col items-center justify-center">
         <img
           v-if="isExpanded || isHovered || isMobileOpen"
           class="h-14 w-auto max-w-[195px] object-contain transition-all duration-200"
@@ -34,7 +34,7 @@
       </router-link>
     </div>
     <div
-      class="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar"
+      class="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar pt-3 lg:pt-0"
     >
       <nav class="mb-6">
         <div class="flex flex-col gap-6">
@@ -100,6 +100,7 @@
                 <router-link
                   v-else-if="item.path"
                   :to="item.path"
+                  @click="closeMobileSidebar"
                   :class="[
                     'menu-item group transition-all duration-150',
                     {
@@ -140,6 +141,7 @@
                       <li v-for="subItem in item.subItems" :key="subItem.name">
                         <router-link
                           :to="subItem.path"
+                          @click="closeMobileSidebar"
                           :class="[
                             'menu-dropdown-item group flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs sm:text-sm font-medium transition-all duration-150',
                             isActive(subItem.path)
@@ -216,7 +218,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 import {
@@ -270,7 +272,7 @@ import { useShopStore } from "@/composables/useShopStore";
 const route = useRoute();
 const router = useRouter();
 
-const { isExpanded, isMobileOpen, isHovered, openSubmenu } = useSidebar();
+const { isExpanded, isMobileOpen, isHovered, openSubmenu, closeMobileSidebar } = useSidebar();
 const { currentShopSections, currentShopMeta } = useShopStore();
 
 const sectionIconMap = {
@@ -439,10 +441,19 @@ const handleMenuClick = (groupIndex, itemIndex, item) => {
     } else {
       toggleSubmenu(groupIndex, itemIndex);
     }
+    closeMobileSidebar();
   } else {
     toggleSubmenu(groupIndex, itemIndex);
   }
 };
+
+// Auto-close sidebar on mobile whenever the route changes
+watch(
+  () => route.fullPath,
+  () => {
+    closeMobileSidebar();
+  }
+);
 
 const isAnySubmenuRouteActive = computed(() => {
   return (menuGroups.value || []).some((group) =>
