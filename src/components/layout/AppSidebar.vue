@@ -76,6 +76,7 @@
                         : isSubmenuOpen(groupIndex, index)
                         ? 'text-gray-800 dark:text-gray-200'
                         : 'menu-item-icon-inactive',
+                      'shrink-0 flex items-center justify-center ml-0.5',
                     ]"
                   >
                     <component :is="item.icon" />
@@ -114,6 +115,7 @@
                       isActive(item.path)
                         ? 'menu-item-icon-active'
                         : 'menu-item-icon-inactive',
+                      'shrink-0 flex items-center justify-center ml-0.5',
                     ]"
                   >
                     <component :is="item.icon" />
@@ -154,7 +156,7 @@
                             <component
                               v-if="subItem.icon"
                               :is="subItem.icon"
-                              class="w-4 h-4 shrink-0 transition-colors"
+                              class="w-4 h-4 shrink-0 transition-colors ml-0.5"
                               :class="isActive(subItem.path) ? 'text-brand-500 dark:text-brand-400' : 'text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-300'"
                             />
                             <span

@@ -2,9 +2,9 @@
   <header
     class="sticky top-0 flex w-full bg-white border-b border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900 h-14 sm:h-16 items-center"
   >
-    <div class="flex items-center justify-between w-full px-2.5 sm:px-4 lg:px-6 min-w-0 h-full">
+    <div class="flex items-center justify-between w-full px-3.5 sm:px-4 lg:px-6 min-w-0 h-full">
       <!-- Left: Hamburger Menu Button & Logo -->
-      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+      <div class="flex items-center gap-2.5 sm:gap-3 shrink-0 ml-1 sm:ml-0">
         <button
           @click="handleToggle"
           aria-label="Toggle Sidebar Menu"
