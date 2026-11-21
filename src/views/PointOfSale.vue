@@ -1665,7 +1665,7 @@ async function startCamera() {
     stopCamera()
 
     // 3. Discover available video input devices (front/back cameras, webcams)
-    if (navigator?.mediaDevices?.enumerateDevices) {
+    if (typeof navigator !== 'undefined' && navigator.mediaDevices) {
       try {
         const devices = await BrowserMultiFormatReader.listVideoInputDevices()
         availableVideoDevices.value = devices
